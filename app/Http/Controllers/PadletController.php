@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Padlet;
 use Dotenv\Parser\Entry;
+use Faker\Core\Number;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Entrie;
@@ -30,6 +31,14 @@ class PadletController extends Controller
         $padlet = Padlet::where('id', $id)->first();
         return $padlet != null ? response()->json(true, 200) : response()->json(false, 200);
     }
+
+    public function getUserName(string $id): JsonResponse {
+        $user = User::where('id', $id)->first();
+        $data = json_decode($user, true);
+        $name = $data['firstName'] . " ". $data['lastName'];
+        return response()->json($name, 200);
+    }
+
 
     public function findBySearchTerm (string $searchTerm) : JsonResponse {
         $padlets = Padlet::with(['user','entries', 'userrights'])
@@ -90,16 +99,6 @@ class PadletController extends Controller
                     }
                 }
 
-                //delete all old entries
-                /*$padlet->entries()->delete();
-
-                if (isset($request['entries']) && is_array($request['entries'])) {
-                    foreach ($request['entries'] as $e) {
-                        $entry = Entrie::firstOrNew(['title' => $e['title'], 'content' => $e['content'], 'user_id' => $e['user_id'], 'padlet_id'=>$id]);
-                        $padlet->entries()->save($entry);
-                    }
-                }*/
-
                 $padlet->save();
             }
             DB::commit();
@@ -122,4 +121,6 @@ class PadletController extends Controller
         else
             return response()->json('padlet could not be deleted - it does not exist', 422);
     }
+
+
 }

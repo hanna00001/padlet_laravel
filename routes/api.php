@@ -26,6 +26,8 @@ Route::get('padlets', [PadletController::class,'index']);
 Route::get('padlets/{id}', [PadletController::class,'findByID']);
 Route::get('padlets/checkid/{id}', [PadletController::class,'checkID']);
 Route::get('padlets/search/{searchTerm}', [PadletController::class,'findBySearchTerm']);
+Route::get('padlets/username/{id}', [PadletController::class,'getUserName']);
+
 
 Route::post('/padlets', [PadletController::class, 'save']);
 Route::put('/padlets/{id}', [PadletController::class, 'update']);
@@ -38,8 +40,8 @@ Route::post('/padlets/{padlet_id}/entries', [EntrieController::class, 'save']);
 Route::put('/padlets/{padlet_id}/entries/{id}', [EntrieController::class, 'update']);
 Route::delete('/padlets/{padlet_id}/entries/{id}', [EntrieController::class, 'delete']);
 
-Route::get('padlets/{padlet_id}/entries/{id}/ratings', [RatingController::class,'findByEntryID']);
-Route::get('padlets/{padlet_id}/entries/{id}/comments', [CommentController::class,'findByEntryID']);
+Route::get('padlets/{padlet_id}/entries/{id}/ratings', [RatingController::class,'findByEntrieID']);
+Route::get('padlets/{padlet_id}/entries/{id}/comments', [CommentController::class,'findByEntrieID']);
 Route::post('padlets/{padlet_id}/entries/{id}/ratings', [RatingController::class,'save']);
 Route::post('padlets/{padlet_id}/entries/{id}/comments', [CommentController::class,'save']);
 

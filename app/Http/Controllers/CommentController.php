@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
-    public function findByEntryID(string $padlet_id, string $entry_id):JsonResponse{
+    public function findByEntrieID(string $padlet_id, string $entry_id):JsonResponse{
         $comment = Comment::where('entrie_id', $entry_id)
             ->with(['user', 'entrie'])->get();
         return $comment != null ? response()->json($comment, 200) : response()->json(null, 200);

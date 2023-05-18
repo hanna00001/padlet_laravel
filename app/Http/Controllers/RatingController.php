@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class RatingController extends Controller
 {
-    public function findByEntryID(string $padlet_id, string $entry_id):JsonResponse{
+    public function findByEntrieID(string $padlet_id, string $entry_id):JsonResponse{
         $rating = Rating::where('entrie_id', $entry_id)
             ->with(['user', 'entrie'])->get();
         return $rating != null ? response()->json($rating, 200) : response()->json(null, 200);
