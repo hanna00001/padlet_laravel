@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,10 +42,23 @@ class RatingController extends Controller
         }
     }
 
+    public function hasAlreadyRated(string $padletid, string $entrieid, string $userid):JsonResponse{
+        $rating = Rating::where('user_id', $userid)
+            ->where('entrie_id', $entrieid)
+            ->with(['user'])->first();
+        $boolean = false;
+        if ($rating != null){
+            $boolean = true;
+        }
+        return response()->json($boolean, 200);
+    }
+
     private function parseRequest(Request $request) : Request {
         //convert date
         $date = new \DateTime($request->create_at);
         $request['create_at'] = $date;
         return $request;
     }
+
+
 }

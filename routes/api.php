@@ -35,12 +35,13 @@ Route::delete('padlets/{isbn}', [PadletController::class, 'delete']);
 
 Route::get('entries', [EntrieController::class,'index']);
 Route::get('padlets/{padlet_id}/entries', [EntrieController::class,'findByPadletID']);
-
+Route::get('entries/{entrie_id}', [EntrieController::class,'getEntryByID']);
 Route::post('/padlets/{padlet_id}/entries', [EntrieController::class, 'save']);
 Route::put('/padlets/{padlet_id}/entries/{id}', [EntrieController::class, 'update']);
 Route::delete('/padlets/{padlet_id}/entries/{id}', [EntrieController::class, 'delete']);
 
 Route::get('padlets/{padlet_id}/entries/{id}/ratings', [RatingController::class,'findByEntrieID']);
+Route::get('padlets/{padlet_id}/entries/{id}/ratings/{user_id}', [RatingController::class,'hasAlreadyRated']);
 Route::get('padlets/{padlet_id}/entries/{id}/comments', [CommentController::class,'findByEntrieID']);
 Route::post('padlets/{padlet_id}/entries/{id}/ratings', [RatingController::class,'save']);
 Route::post('padlets/{padlet_id}/entries/{id}/comments', [CommentController::class,'save']);

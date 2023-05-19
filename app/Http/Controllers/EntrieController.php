@@ -16,6 +16,12 @@ class EntrieController extends Controller
         return response()->json($entry, 200);
     }
 
+    public function getEntryByID(string $id):JsonResponse{
+        $entry = Entrie::where('id', $id)
+            ->with(['comments','user', 'ratings'])->first();
+        return $entry != null ? response()->json($entry, 200) : response()->json(null, 200);
+    }
+
     public function findByPadletID(string $id):JsonResponse{
         $entry = Entrie::where('padlet_id', $id)
             ->with(['comments','user', 'ratings'])->get();
