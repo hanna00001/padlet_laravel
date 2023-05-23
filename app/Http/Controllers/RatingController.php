@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use Faker\Core\Number;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class RatingController extends Controller
         }
     }
 
-    public function hasAlreadyRated(string $padletid, string $entrieid, string $userid):JsonResponse{
+    public function hasAlreadyRated(number $entrieid, number $userid):JsonResponse{
         $rating = Rating::where('user_id', $userid)
             ->where('entrie_id', $entrieid)
             ->with(['user'])->first();
