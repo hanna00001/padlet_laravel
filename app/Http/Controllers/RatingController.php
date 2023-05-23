@@ -43,7 +43,7 @@ class RatingController extends Controller
         }
     }
 
-    public function hasAlreadyRated(number $entrieid, number $userid):JsonResponse{
+    public function hasAlreadyRated(string $entrieid, string $userid):JsonResponse{
         $rating = Rating::where('user_id', $userid)
             ->where('entrie_id', $entrieid)
             ->with(['user'])->first();
