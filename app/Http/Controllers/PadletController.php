@@ -32,20 +32,6 @@ class PadletController extends Controller
         return $padlet != null ? response()->json(true, 200) : response()->json(false, 200);
     }
 
-    /*public function getUserName(string $id): JsonResponse {
-        $user = User::where('id', $id)->first();
-        $data = json_decode($user, true);
-        $name = $data['firstName'] . " ". $data['lastName'];
-        return response()->json($name, 200);
-    }*/
-
-    /*public function getUserImage(string $id): JsonResponse {
-        $user = User::where('id', $id)->first();
-        $data = json_decode($user, true);
-        $name = $data['image'];
-        return response()->json($name, 200);
-    }*/
-
 
     public function findBySearchTerm (string $searchTerm) : JsonResponse {
         $padlets = Padlet::with(['user','entries', 'userrights'])
